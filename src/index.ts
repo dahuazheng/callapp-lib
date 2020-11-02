@@ -46,6 +46,7 @@ class CallApp {
   // 唤端失败跳转通用(下载)页
   fallToFbUrl(): void {
     this.checkOpen(() => {
+      if (!this.options.fallback) return
       evokeByLocation(this.options.fallback);
     });
   }
@@ -105,6 +106,7 @@ class CallApp {
         checkOpenFall = this.fallToFbUrl;
       }
     } else if (Browser.isWechat || Browser.isBaidu || Browser.isWeibo || Browser.isQzone) {
+      if (!this.options.fallback) return // 没有下载页，不进行重定向操作
       evokeByLocation(this.options.fallback);
     } else {
       evokeByIFrame(schemeURL);
